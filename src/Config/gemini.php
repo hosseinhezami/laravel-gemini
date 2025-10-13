@@ -64,13 +64,14 @@ return [
             ],
             /**
              * Set voice name for single-speaker TTS.
-             * @param string $voiceName e.g., 'Kore', 'Puck'
-             * Set speaker voices for multi-speaker TTS.
-             * @param array $speakerVoices e.g., [['speaker' => 'Joe', 'voiceName' => 'Kore'], ['speaker' => 'Jane', 'voiceName' => 'Puck']]
+             *
+             * @param  string  $voiceName  e.g., 'Kore', 'Puck'
+             *                             Set speaker voices for multi-speaker TTS.
+             * @param  array  $speakerVoices  e.g., [['speaker' => 'Joe', 'voiceName' => 'Kore'], ['speaker' => 'Jane', 'voiceName' => 'Puck']]
              */
             'default_speech_config' => [
-				'voiceName' => 'Kore'
-			],
+                'voiceName' => 'Kore',
+            ],
         ],
     ],
 
@@ -111,19 +112,19 @@ return [
     'safety_settings' => [
         [
             'category' => 'HARM_CATEGORY_HARASSMENT',
-            'threshold' => 'BLOCK_MEDIUM_AND_ABOVE'
+            'threshold' => 'BLOCK_MEDIUM_AND_ABOVE',
         ],
         [
             'category' => 'HARM_CATEGORY_HATE_SPEECH',
-            'threshold' => 'BLOCK_MEDIUM_AND_ABOVE'
+            'threshold' => 'BLOCK_MEDIUM_AND_ABOVE',
         ],
         [
             'category' => 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
-            'threshold' => 'BLOCK_MEDIUM_AND_ABOVE'
+            'threshold' => 'BLOCK_MEDIUM_AND_ABOVE',
         ],
         [
             'category' => 'HARM_CATEGORY_DANGEROUS_CONTENT',
-            'threshold' => 'BLOCK_MEDIUM_AND_ABOVE'
+            'threshold' => 'BLOCK_MEDIUM_AND_ABOVE',
         ],
     ],
 
@@ -150,6 +151,19 @@ return [
     'stream' => [
         'chunk_size' => env('GEMINI_STREAM_CHUNK_SIZE', 1024),
         'timeout' => env('GEMINI_STREAM_TIMEOUT', 1000),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Blade Template Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for Blade template support in prompts.
+    |
+    */
+
+    'blade' => [
+        'views_namespace' => 'prompts', // Default namespace for prompt templates
     ],
 
 ];
