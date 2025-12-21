@@ -112,7 +112,7 @@ abstract class BaseProvider
         $mimeTypes = [
             'image' => ['png' => 'image/png', 'jpeg' => 'image/jpeg', 'jpg' => 'image/jpeg', 'webp' => 'image/webp', 'heic' => 'image/heic', 'heif' => 'image/heif'],
             'video' => ['mp4' => 'video/mp4', 'mpeg' => 'video/mpeg', 'mov' => 'video/mov', 'avi' => 'video/avi', 'flv' => 'video/x-flv', 'mpg' => 'video/mpg', 'webm' => 'video/webm', 'wmv' => 'video/wmv', '3gpp' => 'video/3gpp'],
-            'audio' => ['wav' => 'audio/wav', 'mp3' => 'audio/mp3', 'aiff' => 'audio/aiff', 'aac' => 'audio/aac', 'ogg' => 'audio/ogg', 'flac' => 'audio/flac'],
+            'audio' => ['wav' => 'audio/x-wav', 'mp3' => 'audio/mp3', 'aiff' => 'audio/aiff', 'aac' => 'audio/aac', 'ogg' => 'audio/ogg', 'flac' => 'audio/flac'],
             'document' => ['pdf' => 'application/pdf', 'txt' => 'text/plain', 'md' => 'text/markdown']
         ];
 

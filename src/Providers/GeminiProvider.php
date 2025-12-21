@@ -267,7 +267,6 @@ class GeminiProvider extends BaseProvider implements ProviderInterface
     {
         $method = $params['method'] ?? 'generateContent';
         $isPredict = $method === 'predict' || $method === 'predictLongRunning';
-        
         if ($isPredict) {
             // Structure for predict/predictLongRunning
             $instance = ['prompt' => $params['prompt'] ?? ''];
@@ -277,10 +276,18 @@ class GeminiProvider extends BaseProvider implements ProviderInterface
                         'mimeType' => $this->getMimeType($params['fileType'], $params['filePath']),
                         'data' => base64_encode(file_get_contents($params['filePath']))
                     ]
-                ] : [
+                    ] : [
                     'fileData' => [
                         'mimeType' => $this->getMimeType($params['fileType'], $params['filePath']),
                         'fileUri' => $this->upload($params['fileType'], $params['filePath'])
+                    ]
+                ];
+                $instance = array_merge($instance, $filePart);
+            } elseif (isset($params['fileUri']) && isset($params['fileType'])) {
+                $filePart = [
+                    'fileData' => [
+                        'mimeType' => $params['fileType'],
+                        'fileUri' => $params['fileUri']
                     ]
                 ];
                 $instance = array_merge($instance, $filePart);
@@ -298,9 +305,8 @@ class GeminiProvider extends BaseProvider implements ProviderInterface
         } else {
             // Structure for generateContent
             if (!isset($params['prompt']) || empty($params['prompt'])) {
-                throw new ValidationException('Prompt is required for audio generation (TTS).');
+            throw new ValidationException('Prompt is required for audio generation (TTS).');
             }
-
             $body = [
                 'contents' => $params['contents'] ?? [['parts' => [['text' => $params['prompt'] ?? '']]]],
                 'generationConfig' => [
@@ -309,7 +315,6 @@ class GeminiProvider extends BaseProvider implements ProviderInterface
                 ],
                 'safetySettings' => $params['safetySettings'] ?? config('gemini.safety_settings'),
             ];
-
             if (isset($params['filePath']) && isset($params['fileType'])) {
                 $filePart = $params['fileType'] === 'image' ? [
                     'inlineData' => [
@@ -323,8 +328,15 @@ class GeminiProvider extends BaseProvider implements ProviderInterface
                     ]
                 ];
                 $body['contents'][0]['parts'][] = $filePart;
+            } elseif (isset($params['fileUri']) && isset($params['fileType'])) {
+                $filePart = [
+                    'fileData' => [
+                        'mimeType' => $params['fileType'],
+                        'fileUri' => $params['fileUri']
+                    ]
+                ];
+                $body['contents'][0]['parts'][] = $filePart;
             }
-
             if ($forAudio) {
                 $body['generationConfig']['responseModalities'] = ['AUDIO'];
                 $speechConfig = config('gemini.default_speech_config', []);
@@ -362,9 +374,8 @@ class GeminiProvider extends BaseProvider implements ProviderInterface
         }
 
         if ($forLongRunning) {
-            // For predictLongRunning, no additional changes needed as per docs
+        // For predictLongRunning, no additional changes needed as per docs
         }
-
         return $body;
     }
 }

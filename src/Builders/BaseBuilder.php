@@ -107,6 +107,13 @@ abstract class BaseBuilder
         return $this;
     }
 
+    public function file(string $fileType, string $fileUri): self
+    {
+        $this->params['fileType'] = $fileType;
+        $this->params['fileUri'] = $fileUri;
+        return $this;
+    }
+
     public function cache(
         ?array $tools = [],
         ?array $toolConfig = [],
