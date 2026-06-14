@@ -2,7 +2,7 @@
     "name": "hosseinhezami/laravel-gemini",
     "description": "A production-ready Laravel package to integrate with the Google Gemini API. Supports text, image, video, audio, long-context, structured output, files, caching, function-calling and understanding capabilities.",
     "keywords": ["laravel", "gemini", "ai", "api", "google"],
-    "version": "1.0.4",
+    "version": "1.0.5",
     "type": "library",
     "license": "MIT",
     "authors": [
